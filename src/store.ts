@@ -1,9 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
+import dataReducer from "./features/dataSlice";
 import settingsReducer from "./features/settingsSlice";
 
 export const store = configureStore({
     reducer: {
-        settings: settingsReducer
+        settings: settingsReducer,
+        data: dataReducer
     }
 });
 
