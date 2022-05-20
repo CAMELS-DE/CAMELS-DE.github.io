@@ -1,13 +1,19 @@
-import { Box } from "@mui/material";
 import mapboxgl from "mapbox-gl";
 import { useEffect, useRef, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { setActiveFeatureByName } from "../features/dataSlice";
 import { RootState } from "../store";
 
 mapboxgl.accessToken = "pk.eyJ1IjoiY2FtZWxzLWRlIiwiYSI6ImNsM2NzdHB0MjAxcjgzZHBoeWduY2swb2UifQ.GI3UTNL-MEvdmEo-OI84Cg";
 const OverviewMap = () => {
     // get the current application theme
     const theme = useSelector((state: RootState) => state.settings.theme);
+
+    // get a dispatcher
+    const dispatch = useDispatch();
+
+    // get the pegel data 
+    const pegel = useSelector((state: RootState) => state.data.pegel);
 
     // map state
     const [center, setCenter] = useState<[number, number]>([15.5, 58.4]);
@@ -28,6 +34,26 @@ const OverviewMap = () => {
             map.current.setStyle(mapTheme);
         }
     }, [mapTheme])
+
+    // handle pegel updates
+    useEffect(() => {
+        if (!map.current || !pegel) return;
+
+        if (map.current.getSource('pegel')) return;
+        map.current.addSource('pegel', {type: 'geojson', data: pegel});
+
+        // make the default layer
+        map.current.addLayer({
+            id: 'pegel',
+            source: 'pegel',
+            type: 'circle',
+            paint: {
+                "circle-color": ['match', ['get', 'has_output'], "true", 'blue', 'red'],
+                "circle-stroke-width": 1.2,
+                "circle-radius": ['case', ['boolean', ['feature-state', 'hover'], false], 8, 5]
+            }
+        })
+    }, [pegel])
 
     // handle map creation
     useEffect(() => {
@@ -58,12 +84,44 @@ const OverviewMap = () => {
             setZoom(map.current.getZoom());
         });
 
+        // hover handling
+        map.current.on('mouseenter', 'pegel', (e) => {
+            if (!map.current) return;
+            map.current.getCanvas().style.cursor = 'pointer';
+        });
+
+        let hoverId: number | string | undefined | null = null;
+        map.current.on('mousemove', 'pegel', (e) => {
+            if (!map.current) return;
+            if (e.features && e.features.length > 0) {
+                if (hoverId !== null) {
+                    map.current.setFeatureState({source: 'pegel', id: hoverId}, {hover: false});
+                }
+                hoverId = e.features![0].id;
+                map.current.setFeatureState({source: 'pegel', id: hoverId}, {hover: true})
+            }
+        });
+        map.current.on('mouseleave', 'pegel', (e) => {
+            if (!map.current) return;
+            map.current.getCanvas().style.cursor = '';
+            // unmark as hovered
+            if (hoverId !== null) {
+                map.current.setFeatureState({source: 'pegel', id: hoverId}, {hover: false})
+            }
+            hoverId = null;
+        });
+        map.current.on('click', 'pegel', e => {
+            if (e.features && e.features.length > 0) {
+                dispatch(setActiveFeatureByName(e.features[0].properties?.name));
+            }
+        });
+
         // for debugging put map into window
         (window as any).map = map.current;
     })
     return (
         <div>
-            <div ref={mapContainer} id="map" style={{height: 'calc(100vh - 64px)', width: '100vw'}} />
+            <div ref={mapContainer} id="map" style={{height: '50vh', width: '100vw'}} />
         </div>
     );
 }
