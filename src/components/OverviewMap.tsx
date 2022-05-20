@@ -1,7 +1,9 @@
+import { Avatar, Box, Card, CardContent, CardHeader, IconButton, Typography } from "@mui/material";
 import mapboxgl from "mapbox-gl";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setActiveFeatureByName } from "../features/dataSlice";
+import { Close } from '@mui/icons-material';
+import { resetActiveFeature, setActiveFeatureByName } from "../features/dataSlice";
 import { RootState } from "../store";
 
 mapboxgl.accessToken = "pk.eyJ1IjoiY2FtZWxzLWRlIiwiYSI6ImNsM2NzdHB0MjAxcjgzZHBoeWduY2swb2UifQ.GI3UTNL-MEvdmEo-OI84Cg";
@@ -14,6 +16,9 @@ const OverviewMap = () => {
 
     // get the pegel data 
     const pegel = useSelector((state: RootState) => state.data.pegel);
+
+    // get the active feature
+    const activeFeature = useSelector((state: RootState) => state.data.activeFeature);
 
     // map state
     const [center, setCenter] = useState<[number, number]>([15.5, 58.4]);
@@ -54,6 +59,17 @@ const OverviewMap = () => {
             }
         })
     }, [pegel])
+
+    // fly to clicked features
+    useEffect(() => {
+        if (!map.current || !activeFeature) return;
+
+        map.current.flyTo({
+            center: [activeFeature.geometry.coordinates[0], activeFeature.geometry.coordinates[1]],
+            zoom: 12,
+            bearing: Math.random() * 180
+        });
+    }, [activeFeature]);
 
     // handle map creation
     useEffect(() => {
@@ -122,6 +138,37 @@ const OverviewMap = () => {
     return (
         <div>
             <div ref={mapContainer} id="map" style={{height: '50vh', width: '100vw'}} />
+            <Box sx={{
+                position: "absolute",
+                zIndex: 999,
+                width: '30vw',
+                height: '50vh',
+                top: 64,
+                backgroundColor: theme === 'light' ? 'rgba(255, 255, 255, .8)' : 'rgba(0, 0, 0, .5)',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'space-around',
+                p: 5
+            }}>
+                <Typography variant="h2" component="div">CAMELS-DE</Typography>
+                <Typography variant="body2" component="p">
+                    This website gives you an overview of the current processing state of the CAMELS-DE dataset.
+                </Typography>
+                {activeFeature ? (
+                    <Card sx={{minWidth: '240px'}}>
+                        <CardHeader 
+                            avatar={<Avatar sx={{backgroundColor: 'red'}}>!!</Avatar>} 
+                            title={activeFeature.properties!.name}
+                            action={<IconButton color="primary" onClick={() => dispatch(resetActiveFeature())}><Close /></IconButton>}
+                        />
+                        <CardContent>
+                            <strong>Has Output?&nbsp;</strong> {activeFeature.properties!.has_output ? 'Yes' : 'No'}<br />
+                            <strong>Has Discharge?&nbsp;</strong> {activeFeature.properties!.has_discharge ? 'Yes' : 'No'}<br />
+                        </CardContent>
+                    </Card>
+                ) : null }
+            </Box>
         </div>
     );
 }

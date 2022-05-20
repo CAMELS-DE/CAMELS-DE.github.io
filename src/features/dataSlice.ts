@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface DataSlice {
     pegel?: GeoJSON.FeatureCollection<GeoJSON.Point>;
-    activeFeature?: GeoJSON.Feature;
+    activeFeature?: GeoJSON.Feature<GeoJSON.Point>;
 }
 
 const initialState: DataSlice = {
@@ -16,7 +16,7 @@ export const dataSlice = createSlice({
         setPegel: (state, action: PayloadAction<GeoJSON.FeatureCollection<GeoJSON.Point>>) => {
             state.pegel = action.payload;
         },
-        setActiveFeature: (state, action: PayloadAction<GeoJSON.Feature>) => {
+        setActiveFeature: (state, action: PayloadAction<GeoJSON.Feature<GeoJSON.Point>>) => {
             state.activeFeature = action.payload;
         },
         setActiveFeatureByName: (state, action: PayloadAction<string>) => {
