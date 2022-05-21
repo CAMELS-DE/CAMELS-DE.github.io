@@ -1,5 +1,5 @@
 import { Avatar, Box, Card, CardContent, CardHeader, IconButton, Typography } from "@mui/material";
-import mapboxgl from "mapbox-gl";
+import mapboxgl, { FlyToOptions } from "mapbox-gl";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Close } from '@mui/icons-material';
@@ -26,6 +26,7 @@ const OverviewMap = () => {
     const [mapTheme, setMapTheme] = useState<string>("");
     const mapContainer = useRef<HTMLDivElement>(null);
     const map = useRef<mapboxgl.Map>();
+    const initialView: FlyToOptions = {center: [8.676, 51.375], zoom: 5.89, pitch: 55, bearing: 0};
 
     // change the maptheme whenever the app changes
     useEffect(() => {
@@ -89,7 +90,7 @@ const OverviewMap = () => {
             map.current.resize();
             setTimeout(() => {
                 if (!map.current) return;
-                map.current.flyTo({center: [8.676, 51.375], zoom: 5.89, pitch: 55});
+                map.current.flyTo(initialView);
             }, 600);
         });
 
@@ -141,7 +142,7 @@ const OverviewMap = () => {
             <Box sx={{
                 position: "absolute",
                 zIndex: 999,
-                width: '30vw',
+                width: activeFeature ? '45vw' : '30vw',
                 height: '50vh',
                 top: 64,
                 backgroundColor: theme === 'light' ? 'rgba(255, 255, 255, .8)' : 'rgba(0, 0, 0, .5)',
@@ -149,25 +150,34 @@ const OverviewMap = () => {
                 flexDirection: 'column',
                 alignItems: 'center',
                 justifyContent: 'space-around',
+                transition: 'all 1.3s ease-in-out',
                 p: 5
             }}>
-                <Typography variant="h2" component="div">CAMELS-DE</Typography>
-                <Typography variant="body2" component="p">
-                    This website gives you an overview of the current processing state of the CAMELS-DE dataset.
-                </Typography>
-                {activeFeature ? (
-                    <Card sx={{minWidth: '240px'}}>
+                { activeFeature ? (
+                    <>
+                    <Card sx={{width: '100%'}}>
                         <CardHeader 
                             avatar={<Avatar sx={{backgroundColor: 'red'}}>!!</Avatar>} 
                             title={activeFeature.properties!.name}
-                            action={<IconButton color="primary" onClick={() => dispatch(resetActiveFeature())}><Close /></IconButton>}
+                            action={<IconButton color="primary" onClick={() => {
+                                dispatch(resetActiveFeature());
+                                map.current!.flyTo(initialView);
+                            }}><Close /></IconButton>}
                         />
                         <CardContent>
                             <strong>Has Output?&nbsp;</strong> {activeFeature.properties!.has_output ? 'Yes' : 'No'}<br />
                             <strong>Has Discharge?&nbsp;</strong> {activeFeature.properties!.has_discharge ? 'Yes' : 'No'}<br />
                         </CardContent>
                     </Card>
-                ) : null }
+                    </>
+                ) : (
+                    <>
+                        <Typography variant="h2" component="div">CAMELS-DE</Typography>
+                        <Typography variant="body2" component="p">
+                            This website gives you an overview of the current processing state of the CAMELS-DE dataset.
+                        </Typography>
+                    </>
+                ) }
             </Box>
         </div>
     );
