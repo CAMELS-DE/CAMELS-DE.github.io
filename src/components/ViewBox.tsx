@@ -6,7 +6,7 @@ interface ViewBoxProps {
 }
 
 const ViewBox = ({ children, centering, withHeader }: React.PropsWithChildren<ViewBoxProps>) => {
-    const sx: SxProps  = {minHeight: withHeader ? 'calc(100vh - 64px)' : '100vh', width: '100vw', padding: 0, margin: 0, boxSizing: 'border-box'};
+    const sx: SxProps  = {minHeight: withHeader ? 'calc(100vh - 64px)' : '100vh', width: '100%', padding: 0, margin: 0, boxSizing: 'border-box'};
     if (centering) {
         sx.display = 'flex';
         sx.flexDirection = 'column';

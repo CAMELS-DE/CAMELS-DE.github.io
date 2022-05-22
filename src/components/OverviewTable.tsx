@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import { DataGrid, GridColDef, useGridApiRef } from "@mui/x-data-grid";
+import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setActiveFeatureByName } from "../features/dataSlice";

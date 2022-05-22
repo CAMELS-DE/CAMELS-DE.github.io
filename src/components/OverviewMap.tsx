@@ -138,7 +138,7 @@ const OverviewMap = () => {
     })
     return (
         <div>
-            <div ref={mapContainer} id="map" style={{height: '50vh', width: '100vw'}} />
+            <div ref={mapContainer} id="map" style={{height: '50vh', width: '100%'}} />
             <Box sx={{
                 position: "absolute",
                 zIndex: 999,
