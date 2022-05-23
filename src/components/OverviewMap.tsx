@@ -1,5 +1,5 @@
 import { Avatar, Box, Card, CardContent, CardHeader, IconButton, Typography } from "@mui/material";
-import mapboxgl, { FlyToOptions } from "mapbox-gl";
+import mapboxgl, { FlyToOptions } from "!mapbox-gl";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Close } from '@mui/icons-material';
