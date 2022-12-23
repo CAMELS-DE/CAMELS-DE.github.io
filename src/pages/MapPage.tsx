@@ -13,8 +13,9 @@ const DevelopmentMode: React.FC = () => {
 }
 
 const MapPage: React.FC = () => {
-
+    // onlonad callback handler
     const onLoad = (e: any) => {
+        // resize the map
         (e as maplibregl.MapLibreEvent).target.resize()
     }
     return (
