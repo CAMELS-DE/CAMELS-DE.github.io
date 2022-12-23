@@ -1,9 +1,11 @@
-import { IonContent,  IonPage } from "@ionic/react";
-import Map, { useMap } from 'react-map-gl';
+import { IonContent,  IonFab,  IonFabButton,  IonMenuToggle,  IonPage } from "@ionic/react";
+import Map, { Layer, useMap } from 'react-map-gl';
 import maplibregl from 'maplibre-gl';
 import { useEffect } from "react";
 import BaselayerLabels from "../components/map-components/BaselayerLabels";
 import { useLayers } from "../context/layers";
+import LayerDrawer from "../components/map-components/LayerDrawer";
+import LayerDrawerToggle from "../components/map-components/LayerDrawerToggle";
 
 
 const DevelopmentMode: React.FC = () => {
@@ -24,7 +26,8 @@ const MapPage: React.FC = () => {
         (e as maplibregl.MapLibreEvent).target.resize()
     }
     return (
-        <IonPage>
+        <LayerDrawer>
+        <IonPage id="map-page">
             <IonContent fullscreen>
                 <Map mapLib={maplibregl}
                     style={{width: '100vw', height: '100vh'}}
@@ -39,23 +42,24 @@ const MapPage: React.FC = () => {
                                 tileSize: 256,
                                 attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://www.openstreetmap.org/copyright">ODbL</a>.',
                                 maxzoom: 19
-                            }
+                            },
                         },
                         layers: [
                             {
                                 id: 'terrain',
                                 type: 'raster',
                                 source: 'terrain'
-                            }
+                            },
                         ]
                     }}
                 >
                     <DevelopmentMode />
+                    <LayerDrawerToggle />
                     { active.includes('labels') ? <BaselayerLabels />: null }
-                    
                 </Map>
             </IonContent>
         </IonPage>
+        </LayerDrawer>
     )
 }
 
