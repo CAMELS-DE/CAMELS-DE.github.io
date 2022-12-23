@@ -19,8 +19,10 @@
     "@types/react-dom": "^18.0.6",
     "@types/react-router": "^5.1.11",
     "@types/react-router-dom": "^5.1.7",
+    "axios": "^1.2.1",
     "history": "^4.9.0",
     "ionicons": "^6.0.3",
+    "lodash.clonedeep": "^4.5.0",
     "mapbox-gl": "npm:empty-npm-package@^1.0.0",
     "maplibre-gl": "^2.4.0",
     "react": "^18.2.0",
@@ -69,7 +71,8 @@
     ]
   },
   "devDependencies": {
-    "@capacitor/cli": "4.6.1"
+    "@capacitor/cli": "4.6.1",
+    "@types/lodash.clonedeep": "^4.5.7"
   },
   "description": "An Ionic project"
 }
