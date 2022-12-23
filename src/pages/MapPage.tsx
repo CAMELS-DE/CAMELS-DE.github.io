@@ -13,11 +13,16 @@ const DevelopmentMode: React.FC = () => {
 }
 
 const MapPage: React.FC = () => {
+
+    const onLoad = (e: any) => {
+        (e as maplibregl.MapLibreEvent).target.resize()
+    }
     return (
         <IonPage>
             <IonContent fullscreen>
                 <Map mapLib={maplibregl}
-                    style={{width: '100%', height: '100%'}}
+                    style={{width: '100vw', height: '100vh'}}
+                    onLoad={m => onLoad(m)}
                     //mapStyle="https://demotiles.maplibre.org/style.json"
                     mapStyle={{
                         version: 8,
