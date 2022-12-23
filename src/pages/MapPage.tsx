@@ -1,7 +1,9 @@
 import { IonContent,  IonPage } from "@ionic/react";
-import Map, { useMap, Source, Layer } from 'react-map-gl';
+import Map, { useMap } from 'react-map-gl';
 import maplibregl from 'maplibre-gl';
 import { useEffect } from "react";
+import BaselayerLabels from "../components/map-components/BaselayerLabels";
+import { useLayers } from "../context/layers";
 
 
 const DevelopmentMode: React.FC = () => {
@@ -13,6 +15,9 @@ const DevelopmentMode: React.FC = () => {
 }
 
 const MapPage: React.FC = () => {
+    // use the Layer context
+    const { active } = useLayers()
+
     // onlonad callback handler
     const onLoad = (e: any) => {
         // resize the map
@@ -46,14 +51,8 @@ const MapPage: React.FC = () => {
                     }}
                 >
                     <DevelopmentMode />
-                    <Source 
-                        id="labels"
-                        type="raster" 
-                        tiles={['https://stamen-tiles.a.ssl.fastly.net/terrain-labels/{z}/{x}/{y}.jpg']}
-                        tileSize={256}
-                    >
-                        <Layer id="label" type="raster" source="labels" />
-                    </Source>
+                    { active.includes('labels') ? <BaselayerLabels />: null }
+                    
                 </Map>
             </IonContent>
         </IonPage>
