@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import BaselayerLabels from "../components/map-components/BaselayerLabels";
 import LayerDrawer from "../components/map-components/LayerDrawer";
 import LayerDrawerToggle from "../components/map-components/LayerDrawerToggle";
+import StationsLayer from "../components/map-components/StationsLayer";
 
 
 const DevelopmentMode: React.FC = () => {
@@ -52,6 +53,7 @@ const MapPage: React.FC = () => {
                     <DevelopmentMode />
                     <LayerDrawerToggle />
                     <BaselayerLabels />
+                    <StationsLayer />
                 </Map>
             </IonContent>
         </IonPage>

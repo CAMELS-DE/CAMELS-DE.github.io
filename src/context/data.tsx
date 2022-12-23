@@ -33,7 +33,7 @@ export const DataProvider: React.FC<React.PropsWithChildren> = ({ children }) =>
             // filter the geojson for the features with geometries
             const stSrc = {
                 type: 'FeatureCollection', 
-                bbox: response.data.bbox, 
+                bbox: response.data.bbox,
                 features: [...cloneDeep(response.data.features.filter(f => !!f.geometry))]
             } as StationSource
 
