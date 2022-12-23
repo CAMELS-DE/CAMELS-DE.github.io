@@ -1,42 +1,31 @@
-import { CssBaseline } from '@mui/material';
-import { createTheme, ThemeProvider} from '@mui/material/styles';
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { IonApp, setupIonicReact } from '@ionic/react';
 
-import axios from 'axios';
+/* Core CSS required for Ionic components to work properly */
+import '@ionic/react/css/core.css';
 
-// import pages
-import Home from './pages/Home';
-import { RootState } from './store';
-import { setPegel } from './features/dataSlice';
+/* Basic CSS for apps built with Ionic */
+import '@ionic/react/css/normalize.css';
+import '@ionic/react/css/structure.css';
+import '@ionic/react/css/typography.css';
 
+/* Optional CSS utils that can be commented out */
+import '@ionic/react/css/padding.css';
+import '@ionic/react/css/float-elements.css';
+import '@ionic/react/css/text-alignment.css';
+import '@ionic/react/css/text-transformation.css';
+import '@ionic/react/css/flex-utils.css';
+import '@ionic/react/css/display.css';
 
-function App() {
-  const dispatch = useDispatch();
+/* Theme variables */
+import './theme/variables.css';
+import SingleNavigation from './SingleNavigation';
 
-  // subscribe to theme changes
-  const themeMode = useSelector((state: RootState) => state.settings.theme);
+setupIonicReact();
 
-  // create the theme
-  const theme = createTheme({
-    palette: {
-      mode: themeMode,
-    }
-  })
-
-  // load the pegel Data once
-  useEffect(() => {
-    axios.get<GeoJSON.FeatureCollection<GeoJSON.Point>>('https://api.camels-de.org/state/pegel.json').then(res => {
-      dispatch(setPegel(res.data));
-    })
-  });
-
-  return (
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <Home />
-      </ThemeProvider>
-  );
-}
+const App: React.FC = () => (
+  <IonApp>
+    <SingleNavigation />
+  </IonApp>
+);
 
 export default App;
