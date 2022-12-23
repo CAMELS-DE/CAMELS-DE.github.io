@@ -1,9 +1,8 @@
-import { IonContent,  IonFab,  IonFabButton,  IonMenuToggle,  IonPage } from "@ionic/react";
-import Map, { Layer, useMap } from 'react-map-gl';
+import { IonContent, IonPage } from "@ionic/react";
+import Map, { useMap } from 'react-map-gl';
 import maplibregl from 'maplibre-gl';
 import { useEffect } from "react";
 import BaselayerLabels from "../components/map-components/BaselayerLabels";
-import { useLayers } from "../context/layers";
 import LayerDrawer from "../components/map-components/LayerDrawer";
 import LayerDrawerToggle from "../components/map-components/LayerDrawerToggle";
 
@@ -17,9 +16,6 @@ const DevelopmentMode: React.FC = () => {
 }
 
 const MapPage: React.FC = () => {
-    // use the Layer context
-    const { active } = useLayers()
-
     // onlonad callback handler
     const onLoad = (e: any) => {
         // resize the map
@@ -55,7 +51,7 @@ const MapPage: React.FC = () => {
                 >
                     <DevelopmentMode />
                     <LayerDrawerToggle />
-                    { active.includes('labels') ? <BaselayerLabels />: null }
+                    <BaselayerLabels />
                 </Map>
             </IonContent>
         </IonPage>
