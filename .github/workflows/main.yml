@@ -20,10 +20,13 @@ jobs:
         node-version: 16.x
         cache: 'npm'
     
+    - name: Install ionic
+      run: npm i -g @ionic/cli
+    
     - name: Build app
       run: | 
         npm i
-        npm run build
+        ionic build --engine=browser
         
     - name: deploy
       uses: crazy-max/ghaction-github-pages@v2.6.0
