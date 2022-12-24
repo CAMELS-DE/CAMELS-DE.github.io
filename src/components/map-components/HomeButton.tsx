@@ -30,7 +30,7 @@ const HomeButton: React.FC = () => {
     }, [map])
 
     return <>
-        <IonFab vertical="bottom" className="ion-margin" color="default">
+        <IonFab vertical="top" horizontal="end" className="ion-margin" color="default">
             <IonFabButton onClick={onClick}>
                 <IonIcon icon={homeOutline} />
             </IonFabButton>
