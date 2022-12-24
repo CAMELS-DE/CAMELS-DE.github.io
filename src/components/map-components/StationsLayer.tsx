@@ -1,6 +1,6 @@
-import { IonButton, IonButtons, IonContent, IonHeader, IonItem, IonLabel, IonList, IonModal, IonTitle, IonToolbar } from "@ionic/react"
+import { IonButton, IonButtons, IonContent, IonItem, IonLabel, IonList, IonModal, IonTitle, IonToolbar } from "@ionic/react"
 import cloneDeep from "lodash.clonedeep"
-import { CirclePaint, MapboxGeoJSONFeature, MapLayerMouseEvent } from "mapbox-gl"
+import { CirclePaint, MapLayerMouseEvent } from "mapbox-gl"
 
 import { useEffect, useRef, useState } from "react"
 import { Layer, Source, Popup, useMap } from "react-map-gl"
@@ -11,7 +11,7 @@ import { useLayers } from "../../context/layers"
 const StationsLayer: React.FC = () => {
     // component state for hovered and selected Features
     const [selected, setSelected] = useState<StationFeature>()
-    const [hovered, setHoverered] = useState<StationFeature>()
+    // const [hovered, setHoverered] = useState<StationFeature>()
 
     // copy the source GeoJSON over
     const [src, setSrc] = useState<StationSource>()

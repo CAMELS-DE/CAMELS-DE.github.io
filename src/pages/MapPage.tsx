@@ -1,5 +1,5 @@
 import { IonContent, IonPage } from "@ionic/react";
-import Map, { MapLayerMouseEvent, useMap } from 'react-map-gl';
+import Map, { useMap } from 'react-map-gl';
 import maplibregl from 'maplibre-gl';
 import { useEffect } from "react";
 import BaselayerLabels from "../components/map-components/BaselayerLabels";

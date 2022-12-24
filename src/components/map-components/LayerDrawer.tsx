@@ -1,5 +1,4 @@
-import { IonButtons, IonCheckbox, IonContent, IonFab, IonFabButton, IonHeader, IonIcon, IonItem, IonLabel, IonList, IonMenu, IonMenuButton, IonMenuToggle, IonTitle, IonToggle, IonToolbar } from "@ionic/react"
-import { layersOutline } from 'ionicons/icons'
+import { IonButtons, IonContent, IonHeader, IonItem, IonLabel, IonList, IonMenu, IonMenuButton, IonTitle, IonToggle, IonToolbar } from "@ionic/react"
 import React, { useRef } from "react"
 import { useLayers } from "../../context/layers"
 
@@ -33,7 +32,6 @@ const LayerDrawer: React.FC<React.PropsWithChildren> = ({ children }) => {
                     { available.map(layer => {
                         return (
                             <IonItem key={layer}>
-                                {/* <IonCheckbox slot="start" checked={active.includes(layer)} onIonChange={e => onToggle(layer, e.target.checked) }/> */}
                                 <IonToggle slot="start" color="success" mode="ios" checked={active.includes(layer)} onIonChange={e => onToggle(layer, e.target.checked)} />
                                 <IonLabel>{layer}</IonLabel>
                             </IonItem>
