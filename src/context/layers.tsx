@@ -51,7 +51,7 @@ export const LayerProvider: React.FC<React.PropsWithChildren> = ({ children }) =
     // effect to set default values
     useEffect(() => {
         setAvailable(['labels', 'stations'])
-        setActive(['labels'])
+        setActive(['stations'])
     }, [])
 
     // create the context value
