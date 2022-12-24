@@ -14,3 +14,4 @@ export interface Station {
 }
 
 export type StationSource = GeoJSON.FeatureCollection<GeoJSON.Point, Station>
+export type StationFeature = GeoJSON.Feature<GeoJSON.Point, Station>

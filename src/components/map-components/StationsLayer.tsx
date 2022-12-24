@@ -1,16 +1,23 @@
+import { IonButton, IonButtons, IonContent, IonHeader, IonItem, IonLabel, IonList, IonModal, IonTitle, IonToolbar } from "@ionic/react"
 import cloneDeep from "lodash.clonedeep"
-import { CirclePaint, MapLayerMouseEvent } from "mapbox-gl"
+import { CirclePaint, MapboxGeoJSONFeature, MapLayerMouseEvent } from "mapbox-gl"
 
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { Layer, Source, Popup, useMap } from "react-map-gl"
 import { useData } from "../../context/data"
-import { StationSource } from "../../context/data.model"
+import { StationFeature, StationSource } from "../../context/data.model"
 import { useLayers } from "../../context/layers"
 
 const StationsLayer: React.FC = () => {
-    // hover state
-    const [hoveredId, setHoveredId] = useState<string | null>(null)
+    // component state for hovered and selected Features
+    const [selected, setSelected] = useState<StationFeature>()
+    const [hovered, setHoverered] = useState<StationFeature>()
+
+    // copy the source GeoJSON over
     const [src, setSrc] = useState<StationSource>()
+
+    // reference to the drawer
+    const modalRef = useRef<HTMLIonModalElement>(null)
 
     // get a map reference
     const map = useMap()
@@ -34,6 +41,11 @@ const StationsLayer: React.FC = () => {
         'circle-stroke-color': 'white',
         
     } as CirclePaint
+
+    // handle modal if selected changed
+    useEffect(() => {
+        selected ? modalRef.current?.present() : modalRef.current?.dismiss()
+    }, [selected])
 
     // listen to hover events
     useEffect(() => {
@@ -75,7 +87,10 @@ const StationsLayer: React.FC = () => {
         // click Handler
         map.current.on('click', 'stations', (e: MapLayerMouseEvent) => {
             if (e.features && e.features.length > 0) {
+                // get the feature
                 const f = e.features[0] as GeoJSON.Feature<GeoJSON.Point>;
+                setSelected(f as StationFeature)
+
                 map.current?.flyTo({
                     center: e.lngLat,
                     zoom: 11,
@@ -84,13 +99,51 @@ const StationsLayer: React.FC = () => {
                 })
             }
         })
-    }, [map, src])
+    }, [map, src, modalRef])
     
     return <>
         <Source id="stations" type="geojson" data={src}>
             <Layer id="stations" type="circle" source="stations" paint={paint} layout={{'visibility': active.includes('stations') ? 'visible' : 'none'}}/>
         </Source>
         
+        <IonModal ref={modalRef} breakpoints={[0., 0.3, 0.6, 0.9, 1.0]} initialBreakpoint={0.3} showBackdrop={false}>
+            <IonContent>
+                <IonToolbar>
+                    <IonButtons slot="start">
+                        <IonButton 
+                            color="primary" 
+                            href={`https://data-reports.camels-de.org/${selected?.properties.camels_id}.html`} 
+                            target="_blank"
+                        >
+                            Report
+                        </IonButton>
+                    </IonButtons>
+                    <IonTitle>{selected?.properties.camels_id}</IonTitle>
+                    <IonButtons slot="end">
+                        <IonButton fill="clear" onClick={() => setSelected(undefined)}>close</IonButton>
+                    </IonButtons>
+                </IonToolbar>
+                <IonList>
+                    <IonItem>
+                        <IonLabel slot="start">Federal State</IonLabel>
+                        <IonLabel slot="end">{selected?.properties.federal_state}</IonLabel>
+                    </IonItem>
+                    <IonItem>
+                        <IonLabel slot="start">Discharge data:</IonLabel>
+                        <IonLabel slot="end">{selected?.properties.q_count} days</IonLabel>
+                    </IonItem>
+                    <IonItem>
+                        <IonLabel slot="start">Water level data:</IonLabel>
+                        <IonLabel slot="end">{selected?.properties.w_count} days</IonLabel>
+                    </IonItem>
+                    <IonItem>
+                        <IonLabel slot="start">Catchment Area</IonLabel>
+                        <IonLabel slot="end">{selected?.properties.area} km</IonLabel>
+                    </IonItem>
+                </IonList>
+
+            </IonContent>
+        </IonModal>
     </>
 }
 
