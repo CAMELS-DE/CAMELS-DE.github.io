@@ -1,5 +1,5 @@
 import { IonContent, IonPage } from "@ionic/react";
-import Map, { useMap } from 'react-map-gl';
+import Map, { MapLayerMouseEvent, useMap } from 'react-map-gl';
 import maplibregl from 'maplibre-gl';
 import { useEffect } from "react";
 import BaselayerLabels from "../components/map-components/BaselayerLabels";
@@ -29,6 +29,7 @@ const MapPage: React.FC = () => {
                 <Map mapLib={maplibregl}
                     style={{width: '100vw', height: '100vh'}}
                     onLoad={m => onLoad(m)}
+                    interactiveLayerIds={['stations']}
                     //mapStyle="https://demotiles.maplibre.org/style.json"
                     mapStyle={{
                         version: 8,
