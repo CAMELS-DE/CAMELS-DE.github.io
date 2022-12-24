@@ -6,6 +6,7 @@ import BaselayerLabels from "../components/map-components/BaselayerLabels";
 import LayerDrawer from "../components/map-components/LayerDrawer";
 import LayerDrawerToggle from "../components/map-components/LayerDrawerToggle";
 import StationsLayer from "../components/map-components/StationsLayer";
+import HomeButton from "../components/map-components/HomeButton";
 
 
 const DevelopmentMode: React.FC = () => {
@@ -53,6 +54,8 @@ const MapPage: React.FC = () => {
                 >
                     <DevelopmentMode />
                     <LayerDrawerToggle />
+                    <HomeButton />
+
                     <BaselayerLabels />
                     <StationsLayer />
                 </Map>
