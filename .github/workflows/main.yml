@@ -26,7 +26,7 @@ jobs:
     - name: Build app
       run: | 
         npm i
-        ionic build --engine=browser --ci=false
+        ionic build --engine=browser --ci=false --public-url=https://camels-de.org
       env:
         CI: false
         
