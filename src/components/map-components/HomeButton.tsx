@@ -25,7 +25,7 @@ const HomeButton: React.FC = () => {
 
     useEffect(() => {
         if (map.current) {
-            setTimeout(onClick, 500)
+            setTimeout(onClick, 800)
         }
     }, [map])
 
