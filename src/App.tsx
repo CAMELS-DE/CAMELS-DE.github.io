@@ -21,14 +21,13 @@ import 'maplibre-gl/dist/maplibre-gl.css';
 
 /* Theme variables */
 import './theme/variables.css';
-import ExploreContainer from './components/ExploreContainer';
-//import SingleNavigation from './SingleNavigation';
+import SingleNavigation from './SingleNavigation';
 
 setupIonicReact();
 
 const App: React.FC = () => (
   <IonApp>
-    <ExploreContainer />
+    <SingleNavigation />
   </IonApp>
 );
 
