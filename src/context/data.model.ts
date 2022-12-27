@@ -7,7 +7,7 @@ export interface Station {
     x: number,
     y: number,
     area: number,
-    has_output: boolean,
+    has_out: boolean,
     q_count: number,
     w_count: number,
     [key: string]: number | boolean | string,

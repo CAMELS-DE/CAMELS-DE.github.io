@@ -35,7 +35,10 @@ const StationsLayer: React.FC = () => {
     // build the pain
     const paint = {
         'circle-color-transition': {duration: 600},
-        'circle-color': ['case', ['boolean', ['feature-state', 'hover'], false], 'purple', 'red'],
+        'circle-color': ['case', ['boolean', ['feature-state', 'hover'], false], 
+            'purple',
+            ['feature-state', 'color']
+        ],
         'circle-opacity': ['case', ['boolean', ['feature-state', 'hover'], false], 1.0, 0.5],
         'circle-radius': ['case', ['boolean', ['feature-state', 'hover'], false], 8.5, 6],
         'circle-stroke-width': 0.8,
@@ -47,6 +50,17 @@ const StationsLayer: React.FC = () => {
     useEffect(() => {
         selected ? modalRef.current?.present() : modalRef.current?.dismiss()
     }, [selected])
+
+    // set a feature state for coloring
+    useEffect(() => {
+        if (!map) return
+        src?.features.forEach(f => {
+            map.current?.setFeatureState(
+                {source: 'stations', id: f.id},
+                {color: !f.properties.has_out ? 'red' : f.properties.q_count > 0 ? 'green' : 'yellow'}
+            )
+        })
+    }, [src, map])
 
     // listen to hover events
     useEffect(() => {
@@ -131,6 +145,10 @@ const StationsLayer: React.FC = () => {
                     <IonItem>
                         <IonLabel slot="start">Federal State</IonLabel>
                         <IonLabel slot="end">{selected?.properties.federal_state}</IonLabel>
+                    </IonItem>
+                    <IonItem>
+                        <IonLabel slot="start">Data file:</IonLabel>
+                        <IonLabel slot="end">{selected?.properties.has_out   ? 'exists' : 'processing failed'}</IonLabel>
                     </IonItem>
                     <IonItem>
                         <IonLabel slot="start">Discharge data:</IonLabel>
