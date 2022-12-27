@@ -32,6 +32,9 @@ jobs:
 
     - name: Add the 404 for gh pages
       run: cp ./build/index.html ./build/404.html
+      
+    - name: Create the CNAME file
+      run: echo "camels-de.org" > ./build/CNAME
         
     - name: deploy
       uses: crazy-max/ghaction-github-pages@v2.6.0
