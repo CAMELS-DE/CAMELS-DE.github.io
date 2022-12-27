@@ -37,7 +37,7 @@ const StationsLayer: React.FC = () => {
         'circle-color-transition': {duration: 600},
         'circle-color': ['case', ['boolean', ['feature-state', 'hover'], false], 
             'purple',
-            ['feature-state', 'color']
+            ['to-color', ['feature-state', 'color'], 'gray']
         ],
         'circle-opacity': ['case', ['boolean', ['feature-state', 'hover'], false], 1.0, 0.5],
         'circle-radius': ['case', ['boolean', ['feature-state', 'hover'], false], 8.5, 6],
@@ -132,6 +132,7 @@ const StationsLayer: React.FC = () => {
                             color="primary" 
                             href={`https://data-reports.camels-de.org/${selected?.properties.camels_id}.html`} 
                             target="_blank"
+                            disabled={!selected?.properties.has_out}
                         >
                             Report
                         </IonButton>
