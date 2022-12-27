@@ -3,7 +3,7 @@ import { informationOutline } from "ionicons/icons"
 
 const InfoButton: React.FC = () => {
     return <>
-        <IonFab vertical="top" horizontal="start" className="ion-margin">
+        <IonFab vertical="top" horizontal="start">
             <IonFabButton routerLink="/info" routerDirection="forward">
                 <IonIcon icon={informationOutline} />
             </IonFabButton>
