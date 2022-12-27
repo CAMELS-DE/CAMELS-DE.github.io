@@ -1,5 +1,5 @@
 import { IonContent, IonPage } from "@ionic/react";
-import Map, { useMap } from 'react-map-gl';
+import Map, { NavigationControl, ScaleControl, useMap } from 'react-map-gl';
 import maplibregl, { StyleSpecification } from 'maplibre-gl';
 import { Style } from 'mapbox-gl'
 import 'maplibre-gl/dist/maplibre-gl.css';
@@ -64,9 +64,10 @@ const MapPage: React.FC = () => {
     return (
         <LayerDrawer>
         <IonPage id="map-page">
+
             <IonContent fullscreen>
                 <Map mapLib={maplibregl}
-                    style={{width: '100vw', height: '100vh'}}
+                    style={{width: '100%', height: '100%'}}
                     onLoad={m => onLoad(m)}
                     interactiveLayerIds={['stations']}
                     //mapStyle="https://demotiles.maplibre.org/style.json"
@@ -76,6 +77,8 @@ const MapPage: React.FC = () => {
                     <LayerDrawerToggle />
                     <HomeButton />
                     <InfoButton />
+                    <ScaleControl position="bottom-left"/>
+                    <NavigationControl position="bottom-left" />
 
                     <BaselayerLabels />
                     <StationsLayer />
