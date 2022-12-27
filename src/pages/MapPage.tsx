@@ -36,12 +36,26 @@ const MapPage: React.FC = () => {
                 attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://www.openstreetmap.org/copyright">ODbL</a>.',
                 maxzoom: 19
             },
+            mask: {
+                type: 'geojson',
+                data: 'https://api.camels-de.org/static/germany.geojson'
+            },
         },
         layers: [
             {
                 id: 'terrain',
                 type: 'raster',
                 source: 'terrain'
+            },
+            {
+                id: 'mask',
+                source: 'mask',
+                type: 'fill-extrusion',
+                paint: {
+                    'fill-extrusion-base': 2500,
+                    'fill-extrusion-color': 'white',
+                    'fill-extrusion-opacity': 0.6
+                }
             },
         ]
     } as Style
@@ -55,25 +69,7 @@ const MapPage: React.FC = () => {
                     onLoad={m => onLoad(m)}
                     interactiveLayerIds={['stations']}
                     //mapStyle="https://demotiles.maplibre.org/style.json"
-                    mapStyle={{
-                        version: 8,
-                        sources: {
-                            terrain: {
-                                type: 'raster',
-                                tiles: ['https://stamen-tiles.a.ssl.fastly.net/terrain-background/{z}/{x}/{y}.jpg'],
-                                tileSize: 256,
-                                attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://www.openstreetmap.org/copyright">ODbL</a>.',
-                                maxzoom: 19
-                            },
-                        },
-                        layers: [
-                            {
-                                id: 'terrain',
-                                type: 'raster',
-                                source: 'terrain'
-                            },
-                        ]
-                    }}
+                    mapStyle={style}
                 >
                     <DevelopmentMode />
                     <LayerDrawerToggle />
