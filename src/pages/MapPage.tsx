@@ -10,7 +10,7 @@ import BaselayerLabels from "../components/map-components/BaselayerLabels";
  import LayerDrawerToggle from "../components/map-components/LayerDrawerToggle";
 import StationsLayer from "../components/map-components/StationsLayer";
 import HomeButton from "../components/map-components/HomeButton";
-import InfoButton from "../components/map-components/InfoButton";
+import FabMenu from "../components/map-components/FabMenu";
 
 const DevelopmentMode: React.FC = () => {
     const map = useMap()
@@ -76,7 +76,7 @@ const MapPage: React.FC = () => {
                     <DevelopmentMode />
                     <LayerDrawerToggle />
                     <HomeButton />
-                    <InfoButton />
+                    <FabMenu />
                     <ScaleControl position="bottom-left"/>
                     <NavigationControl position="bottom-left" />
 
