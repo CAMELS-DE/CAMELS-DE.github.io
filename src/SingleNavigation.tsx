@@ -5,6 +5,7 @@ import { Redirect, Route } from "react-router"
 /* load Pages */
 import InfoPage from "./pages/InfoPage"
 import MapPage from "./pages/MapPage"
+import DatasetMetricsPage from "./pages/DatasetMetricsPage"
 
 const SingleNavigation: React.FC = () => {
     return (
@@ -16,6 +17,10 @@ const SingleNavigation: React.FC = () => {
 
                 <Route exact path="/info">
                     <InfoPage />
+                </Route>
+
+                <Route exact path="/metrics">
+                    <DatasetMetricsPage />
                 </Route>
                 
                 <Route exact path="/">

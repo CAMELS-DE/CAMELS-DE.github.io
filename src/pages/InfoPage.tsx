@@ -58,7 +58,7 @@ const InfoPage: React.FC = () => {
                             CAMELS datasets combine landscape attributes and hydrological and meteorological time series in hundreds of catchments. 
                             These datasets generally offer the possibility to perform and compare modeling and data analysis across a wide range 
                             of different landscapes. 
-                            Despite one of the most extensive hydro-meteorological sampling networks in the world, such a data set is not yet 
+                            Despite having one of the most extensive hydro-meteorological sampling networks in the world, such a data set is not yet available for Germany.
                             The aim of the "CAMELS-DE" initiative is to provide such a comprehensive data set for Germany to the public. 
                         </IonCardContent>
 
