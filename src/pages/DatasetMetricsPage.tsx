@@ -1,4 +1,4 @@
-import { IonButton, IonButtons, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonNote, IonPage, IonRow, IonSpinner, IonTitle, IonToolbar } from "@ionic/react"
+import { IonAccordion, IonAccordionGroup, IonButton, IonButtons, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonItem, IonLabel, IonNote, IonPage, IonRow, IonSpinner, IonTitle, IonToolbar } from "@ionic/react"
 import { arrowBackOutline } from "ionicons/icons";
 import { useEffect, useState } from "react";
 import Plot from 'react-plotly.js';
@@ -110,6 +110,22 @@ const DatasetMetricsPage: React.FC = () => {
                                 <IonCardContent>
                                     The following metrics are provided by the CAMELS-DE Dataset Metrics API. Please note that these are dataset-wide metrics and currently reflect the processing state of the CAMELS-DE dataset. All metrics are pre-calculated and might not represent the most
                                     current version.
+
+                                    <IonAccordionGroup style={{marginTop: '2rem'}}>
+                                        <IonAccordion value="info">
+                                            <IonItem slot="header" color="light">
+                                                <IonLabel>Add More Metrics</IonLabel>
+                                            </IonItem>
+                                            <div className="ion-padding" slot="content">
+                                                <p>
+                                                All members of the <a href="https://github.com/CAMELS-DE" target="_blank">CAMELS-DE Github organization</a> can add more metrics. The metrics are visualized by <a href="https://plotly.com/graphing-libraries/" target="_blank">Plotly.js</a>, which is available in many languages.
+                                                Currently, there are gists for upload from R or Python. You can copy those snippets to your local environment and the defined function will add the metric via the CAMELS-DE Dataset Metric API.
+                                                </p><p>
+                                                Alternatively, with access to https://hub.camels-de.org, you can save Plotly.js figures directly into the remote metrics folder.
+                                                </p>
+                                            </div>
+                                        </IonAccordion>
+                                    </IonAccordionGroup>
                                 </IonCardContent>
                             </IonCard>
                         </IonCol>
