@@ -8,9 +8,25 @@ on:
     branches: [ main ]
 
 jobs:
-  build:
-
+  release:
+    name: Create a new Github Release
     runs-on: ubuntu-latest
+    if: startsWith(github.event.ref, 'refs/tags/v') && endsWith(github.event.ref, '.0')
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        with:
+          body_path: RELEASE.md
+          generate_release_notes: true
+
+  build:
+    name: Deploy to camels-de.org
+    runs-on: ubuntu-latest
+    if: startsWith(github.event.ref, 'refs/tags/v')
 
     steps:
     - uses: actions/checkout@v3
