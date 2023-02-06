@@ -6,6 +6,7 @@ import { Redirect, Route } from "react-router"
 import InfoPage from "./pages/InfoPage"
 import MapPage from "./pages/MapPage"
 import DatasetMetricsPage from "./pages/DatasetMetricsPage"
+import EmbedMetricPage from "./pages/EmbedMetricPage"
 
 const SingleNavigation: React.FC = () => {
     return (
@@ -22,6 +23,8 @@ const SingleNavigation: React.FC = () => {
                 <Route exact path="/metrics">
                     <DatasetMetricsPage />
                 </Route>
+
+                <Route exact path="/embed/:name" component={EmbedMetricPage}/>
                 
                 <Route exact path="/">
                     <Redirect to="/map" />
