@@ -4,7 +4,7 @@
 [![Node.js CI](https://github.com/CAMELS-DE/CAMELS-DE.github.io/actions/workflows/main.yml/badge.svg)](https://github.com/CAMELS-DE/CAMELS-DE.github.io/actions/workflows/main.yml)
 
 You are most likely searching for https://camels-de.org.
-This is repository containing the source code to the website above. 
+This is the repository containing the source code to the website above. 
 It's built as a [React](https://reactjs.org) Typescript application  using [Ionic framework](https://ionicframework.com).
 
 ## Other resources
