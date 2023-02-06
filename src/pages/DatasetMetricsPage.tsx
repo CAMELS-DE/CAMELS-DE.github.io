@@ -1,9 +1,10 @@
-import { IonAccordion, IonAccordionGroup, IonButton, IonButtons, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonItem, IonLabel, IonNote, IonPage, IonRow, IonSpinner, IonTitle, IonToolbar } from "@ionic/react"
+import { IonAccordion, IonAccordionGroup, IonButton, IonButtons, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonItem, IonLabel,  IonPage, IonRow, IonTitle, IonToolbar } from "@ionic/react"
 import { arrowBackOutline } from "ionicons/icons";
 import { useEffect, useState } from "react";
-import Plot from 'react-plotly.js';
 
 import axios from 'axios';
+import MetricCard from "../components/MetricCard";
+import CreateMetricSegments from "../components/segments/CreateMetricSegments";
 
 interface MetricResponse {
     name: string,
@@ -11,66 +12,6 @@ interface MetricResponse {
     plotly?: string,
 }
 
-interface Metric {
-    name: string;
-    title?: string;
-    body?: string;
-    figure?: any;
-    actions?: {href: string, title?: string}[]
-}
-
-const MetricCard: React.FC<{name: string}> = ({ name }) => {
-    const [metric, setMetric] = useState<Metric>()
- 
-    useEffect(() => {
-        axios.get<Metric>(`https://api.camels-de.org/metrics/${name}`).then(res => {
-            if (res.data) setMetric(res.data)
-        })
-    }, [name])
-
-    if (!metric) {
-        return <>
-        <IonCard>
-            <IonCardHeader>
-                <IonCardTitle>Loading...      </IonCardTitle>
-            </IonCardHeader>
-            <IonCardContent>
-                <IonGrid>
-                    <IonRow>
-                        <IonCol size="12" style={{minHeight: '300px', justifyContent: 'center', display: 'flex', alignItems: 'center'}}>
-                            <IonSpinner name="circular" style={{height: '80px', width: '80px'}} />
-                        </IonCol>
-                    </IonRow>
-                </IonGrid>
-            </IonCardContent>
-        </IonCard>
-    </>
-    }
-    return <>
-        <IonCard>
-            { metric.figure ? (
-                <Plot 
-                    data={metric.figure.data}
-                    layout={{...metric.figure.layout, ...{autosize: true, margin: {r: 15}, width: undefined}}}
-                    useResizeHandler
-                    style={{width: '100%'}}
-                />
-            ) : null}
-            <IonCardHeader>
-                <IonCardTitle>{metric?.title ? metric.title : 'Loading...'}</IonCardTitle>
-            </IonCardHeader>
-            <IonCardContent>
-                { metric.body ? metric.body : <IonNote>This metric has no body</IonNote> }
-            </IonCardContent>
-            { metric.actions ? (metric.actions.map((action, idx) => (
-                <IonButton fill="clear" href={action.href} key={idx} target="_blank">
-                    {action.title ? action.title : action.href}
-                </IonButton>
-                ))
-            ) : null }
-        </IonCard>
-    </>
-}
 
 const DatasetMetricsPage: React.FC = () => {
     // component state
@@ -117,12 +58,16 @@ const DatasetMetricsPage: React.FC = () => {
                                                 <IonLabel>Add More Metrics</IonLabel>
                                             </IonItem>
                                             <div className="ion-padding" slot="content">
-                                                <p>
-                                                All members of the <a href="https://github.com/CAMELS-DE" target="_blank">CAMELS-DE Github organization</a> can add more metrics. The metrics are visualized by <a href="https://plotly.com/graphing-libraries/" target="_blank">Plotly.js</a>, which is available in many languages.
-                                                Currently, there are gists for upload from R or Python. You can copy those snippets to your local environment and the defined function will add the metric via the CAMELS-DE Dataset Metric API.
-                                                </p><p>
-                                                Alternatively, with access to https://hub.camels-de.org, you can save Plotly.js figures directly into the remote metrics folder.
+                                                <p style={{marginBottom: '1rem'}}>
+                                                    All members of the <a href="https://github.com/CAMELS-DE" target="_blank">CAMELS-DE Github organization</a> can add more metrics. The metrics are visualized by <a href="https://plotly.com/graphing-libraries/" target="_blank">Plotly.js</a>, which is available in many languages.
+                                                    With access to <a href="https://hub.camels-de.org" target="_blank">https://hub.camels-de.org</a>, you can save Plotly.js figures directly into the remote metrics folder.
                                                 </p>
+                                                <CreateMetricSegments />
+                                                <p style={{marginTop: '1.3rem', marginBottom: '1rem'}}>
+                                                    If you prefer to work local, there are gists for <a href="https://gist.github.com/mmaelicke/aa64a3de43f7ac5805d9a8eaed0bd39e" target="_blank">upload from R</a> or <a href="https://gist.github.com/mmaelicke/e63996773603c9ae196619a687f16793" target="_blank">Python</a>.
+                                                    You can copy those snippets to your local environment and the defined function will add the metric via the CAMELS-DE Dataset Metric API and authorize you via a Github OAuth 2.0 application along the way.
+                                                </p>
+                                                
                                             </div>
                                         </IonAccordion>
                                     </IonAccordionGroup>
