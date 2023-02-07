@@ -10,10 +10,10 @@ import { darcula } from 'react-syntax-highlighter/dist/esm/styles/prism'
 const ShareButtonPopover: React.FC<{name: string}> = ({ name }) => {
     const ref = useRef<HTMLIonModalElement>(null)
     return <>
-        <IonButton fill="clear" id="trigger-share">
+        <IonButton fill="clear" id={`trigger-share-${name}`}>
             <IonIcon icon={codeSlashOutline} slot="icon-only" />
         </IonButton>
-        <IonModal ref={ref} trigger="trigger-share">
+        <IonModal ref={ref} trigger={`trigger-share-${name}`}>
             <IonHeader>
                 <IonToolbar>
                     <IonTitle>Share this Metric</IonTitle>
