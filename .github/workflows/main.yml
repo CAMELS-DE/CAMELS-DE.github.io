@@ -28,21 +28,21 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - name: Use Node.js 16.x
-      uses: actions/setup-node@v3
-      with:
-        node-version: 16.x
-        cache: 'npm'
+#    - name: Use Node.js 16.x
+#      uses: actions/setup-node@v3
+#      with:
+#        node-version: 16.x
+#        cache: 'npm'
     
-    - name: Install ionic
-      run: npm i -g @ionic/cli
+#    - name: Install ionic
+#      run: npm i -g @ionic/cli
     
-    - name: Build app
-      run: | 
-        npm i
-        ionic build --ci=false
-      env:
-        CI: false
+#    - name: Build app
+#      run: | 
+#        npm i
+#        ionic build --ci=false
+#      env:
+#        CI: false
 
     - name: Add the 404 for gh pages
       run: cp ./build/index.html ./build/404.html
