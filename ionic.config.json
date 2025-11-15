@@ -1,7 +1,0 @@
-{
-  "name": "camels-website",
-  "integrations": {
-    "capacitor": {}
-  },
-  "type": "react"
-}

@@ -1,59 +1,39 @@
-# This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
-# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+# Deploy static HTML site to GitHub Pages at camels-de.org
 
-name: Node.js CI
+name: Deploy to GitHub Pages
 
-on: push
+on:
+  push:
+    tags:
+      - 'v*'
 
 jobs:
-  release:
-    name: Create a new Github Release
+  deploy:
+    name: Deploy to camels-de.org
     runs-on: ubuntu-latest
-    if: startsWith(github.event.ref, 'refs/tags/v') && endsWith(github.event.ref, '.0')
 
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+
+      - name: Prepare static bundle
+        run: |
+          rm -rf build
+          mkdir -p build
+          cp index.html build/
+          cp styles.css build/
+          cp -R assets build/
+          cp -R notebooks build/
+
+      - name: Add 404 page for GitHub Pages
+        run: cp build/index.html build/404.html
       
-      - name: Release
-        uses: softprops/action-gh-release@v1
-        with:
-          body_path: RELEASE.md
-          generate_release_notes: true
-
-  build:
-    name: Deploy to camels-de.org
-    runs-on: ubuntu-latest
-    if: startsWith(github.event.ref, 'refs/tags/v')
-
-    steps:
-    - uses: actions/checkout@v3
-#    - name: Use Node.js 16.x
-#      uses: actions/setup-node@v3
-#      with:
-#        node-version: 16.x
-#        cache: 'npm'
-    
-#    - name: Install ionic
-#      run: npm i -g @ionic/cli
-    
-#    - name: Build app
-#      run: | 
-#        npm i
-#        ionic build --ci=false
-#      env:
-#        CI: false
-
-    - name: Add the 404 for gh pages
-      run: cp ./build/index.html ./build/404.html
-      
-    - name: Create the CNAME file
-      run: echo "camels-de.org" > ./build/CNAME
+      - name: Create CNAME file for custom domain
+        run: echo "camels-de.org" > build/CNAME
         
-    - name: deploy
-      uses: crazy-max/ghaction-github-pages@v2.6.0
-      with:
-        build_dir: ./build
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      
+      - name: Deploy to gh-pages branch
+        uses: crazy-max/ghaction-github-pages@v2.6.0
+        with:
+          build_dir: ./build
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
