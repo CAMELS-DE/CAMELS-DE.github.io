@@ -19,9 +19,6 @@ jobs:
       
       - name: Release
         uses: softprops/action-gh-release@v1
-        with:
-          body_path: RELEASE.md
-          generate_release_notes: true
 
   deploy:
     name: Deploy to camels-de.org
