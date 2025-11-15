@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="CAMELS-DE provides harmonised hydro-meteorological data and catchment attributes for Germany to enable large-sample hydrology."
+    />
+    <title>CAMELS-DE</title>
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='0.9em' font-size='90'%3E%F0%9F%90%AA%3C/text%3E%3C/svg%3E"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <nav class="sticky-nav" id="stickyNav">
+      <div class="content">
+        <a href="#top" class="logo">CAMELS-DE</a>
+      </div>
+    </nav>
+
+    <header class="hero" id="top">
+      <div class="content">
+        <div class="hero-text">
+          <p class="label">Large-sample hydrology for Germany</p>
+          <h1>CAMELS-DE</h1>
+          <p class="lead">
+            A large-sample dataset covering hydro-meteorological observations and catchment
+            attributes for 1582 catchments in Germany. <br>
+            Use it to benchmark models, study long-term trends and runoff formation in small 
+            catchments, and accelerate reproducible research.
+          </p>
+        </div>
+        <div class="hero-card">
+          <h2>Access</h2>
+          <div class="cta-group-stacked">
+            <a
+              class="btn primary"
+              href="https://doi.org/10.5281/zenodo.12733967"
+              target="_blank"
+              rel="noreferrer"
+              >Download dataset</a
+            >
+            <a
+              class="btn secondary"
+              href="https://doi.org/10.5194/essd-16-5625-2024"
+              target="_blank"
+              rel="noreferrer"
+              >Read the paper</a
+            >
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <section class="info-cards content">
+      <div class="info-card">
+        <div class="info-card-inner">
+          <div class="info-card-front">
+            <div class="info-number">1582 Catchments</div>
+            <div class="info-text">5 - 15,000 km²</div>
+          </div>
+          <div class="info-card-back">
+            <div class="info-icon">🏞</div>
+          </div>
+        </div>
+      </div>
+      <div class="info-card">
+        <div class="info-card-inner">
+          <div class="info-card-front">
+            <div class="info-number">70 Years</div>
+            <div class="info-text"><br>Meteorological data</div>
+          </div>
+          <div class="info-card-back">
+            <div class="info-icon">🌦</div>
+          </div>
+        </div>
+      </div>
+      <div class="info-card">
+        <div class="info-card-inner">
+          <div class="info-card-front">
+            <div class="info-number">Up to 70 Years</div>
+            <div class="info-text">Discharge & water level data</div>
+          </div>
+          <div class="info-card-back">
+            <div class="info-icon">🌊</div>
+          </div>
+        </div>
+      </div>
+      <div class="info-card">
+        <div class="info-card-inner">
+          <div class="info-card-front">
+            <div class="info-number">Catchment attributes</div>
+            <div class="info-text">Soil, land cover, hydrogeology & human influences</div>
+          </div>
+          <div class="info-card-back">
+            <div class="info-icon">🗺️</div>
+          </div>
+        </div>
+      </div>
+      <div class="info-card">
+        <div class="info-card-inner">
+          <div class="info-card-front">
+            <div class="info-number">LSTM & HBV</div>
+            <div class="info-text">Benchmark for model development</div>
+          </div>
+          <div class="info-card-back">
+            <div class="info-icon">⚡</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <main>
+      <section id="map" class="map-section">
+        <div class="map-intro content">
+          <h2 class="map-title">Interactive map</h2>
+          <button class="fullscreen-btn" onclick="toggleFullscreen()" title="Toggle fullscreen">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/>
+            </svg>
+          </button>
+        </div>
+        <div class="map-frame content" id="mapContainer">
+          <iframe
+            src="assets/interactive-map.html"
+            title="CAMELS-DE station map"
+            loading="lazy"
+          ></iframe>
+        </div>
+      </section>
+    </main>
+
+    <footer id="contact">
+      <div class="content">
+        <div>
+          <p class="label">Contact</p>
+          <p>
+            <a href="https://www.iwu.kit.edu/hyd/english/Staff_loritz.php" target="_blank" rel="noreferrer">Ralf Loritz</a> &
+            <a href="https://www.iwu.kit.edu/hyd/english/Staff_1286.php" target="_blank" rel="noreferrer">Alexander Dolich</a>
+          </p>
+        </div>
+        <div class="footer-links">
+          <a href="https://doi.org/10.5281/zenodo.12733967" target="_blank" rel="noreferrer"
+            >Dataset DOI</a
+          >
+          <a href="https://doi.org/10.5194/essd-16-5625-2024" target="_blank" rel="noreferrer"
+            >Paper DOI</a
+          >
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      // Sticky header on scroll - appears when CAMELS-DE title is fully scrolled out of view
+      window.addEventListener('scroll', function() {
+        const stickyNav = document.getElementById('stickyNav');
+        const heroTitle = document.querySelector('.hero h1');
+        const titleBottom = heroTitle.offsetTop + heroTitle.offsetHeight;
+        
+        if (window.scrollY > titleBottom) {
+          stickyNav.classList.add('visible');
+        } else {
+          stickyNav.classList.remove('visible');
+        }
+      });
+
+      function toggleFullscreen() {
+        const mapContainer = document.getElementById('mapContainer');
+        
+        if (!document.fullscreenElement) {
+          mapContainer.requestFullscreen().catch(err => {
+            console.error('Error attempting to enable fullscreen:', err);
+          });
+        } else {
+          document.exitFullscreen();
+        }
+      }
+    </script>
+  </body>
+</html>
