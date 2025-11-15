@@ -8,6 +8,21 @@ on:
       - 'v*'
 
 jobs:
+  release:
+    name: Create a new GitHub Release
+    runs-on: ubuntu-latest
+    if: endsWith(github.ref, '.0')
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        with:
+          body_path: RELEASE.md
+          generate_release_notes: true
+
   deploy:
     name: Deploy to camels-de.org
     runs-on: ubuntu-latest
