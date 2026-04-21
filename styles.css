@@ -27,7 +27,7 @@ body {
 }
 
 .hero {
-  padding: 4rem 0 3rem;
+  padding: 4rem 0 1.5rem;
   background: var(--bg);
 }
 
@@ -421,6 +421,110 @@ footer a:hover {
 .footer-links a {
   color: #7fd4da;
   text-decoration: none;
+}
+
+/* Announcement section */
+.announcement-section {
+  padding: 1rem 0 0;
+}
+
+.announcement-card {
+  background: linear-gradient(135deg, #0a5c63 0%, #0e7c86 55%, #13939f 100%);
+  border-radius: 1.25rem;
+  padding: 2.5rem 3rem;
+  color: #fff;
+  box-shadow: 0 20px 60px rgba(14, 124, 134, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.announcement-card::before {
+  content: '';
+  position: absolute;
+  right: -80px;
+  top: -80px;
+  width: 280px;
+  height: 280px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.announcement-card::after {
+  content: '';
+  position: absolute;
+  right: 80px;
+  bottom: -100px;
+  width: 200px;
+  height: 200px;
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.announcement-card-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.1rem;
+}
+
+.announcement-badge-new {
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  padding: 0.3em 0.9em;
+  border-radius: 999px;
+  text-transform: uppercase;
+}
+
+.announcement-coming-soon {
+  display: flex;
+  align-items: center;
+  gap: 0.35em;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.75);
+  font-style: italic;
+}
+
+.announcement-card-title {
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  font-weight: 700;
+  margin: 0 0 0.75rem;
+  color: #fff;
+  position: relative;
+}
+
+.announcement-card-desc {
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.88);
+  margin: 0 0 2rem;
+  max-width: 70ch;
+  line-height: 1.6;
+  position: relative;
+}
+
+.announcement-btn {
+  background: #fff;
+  color: var(--accent);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  position: relative;
+}
+
+.announcement-btn:hover {
+  background: #f0fafb;
+  transform: translateY(-2px);
+}
+
+@media (max-width: 640px) {
+  .announcement-card {
+    padding: 1.75rem 1.5rem;
+  }
 }
 
 @media (max-width: 640px) {
