@@ -396,6 +396,20 @@ footer {
   padding: 2.5rem 0;
 }
 
+.footer-contact {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.footer-logo-img {
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
 footer .content {
   display: flex;
   flex-wrap: wrap;
