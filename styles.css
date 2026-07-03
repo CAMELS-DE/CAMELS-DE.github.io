@@ -408,6 +408,51 @@ footer {
   border-radius: 50%;
   object-fit: cover;
   flex-shrink: 0;
+  cursor: pointer;
+}
+
+.footer-logo-img:active {
+  transform: scale(0.96);
+}
+
+.logo-rain-layer {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 9999;
+  opacity: 0;
+  transition: opacity 220ms ease;
+}
+
+.logo-rain-layer.is-active {
+  opacity: 1;
+}
+
+.logo-rain-drop {
+  position: absolute;
+  top: -72px;
+  border-radius: 50%;
+  object-fit: cover;
+  opacity: 0.95;
+  filter: drop-shadow(0 10px 12px rgba(0, 0, 0, 0.2));
+  animation-name: logo-rain-fall;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+
+@keyframes logo-rain-fall {
+  0% {
+    transform: translate3d(0, -10vh, 0) rotate(0deg);
+    opacity: 0;
+  }
+  12% {
+    opacity: 0.95;
+  }
+  100% {
+    transform: translate3d(var(--drift, 0px), 120vh, 0) rotate(540deg);
+    opacity: 0.95;
+  }
 }
 
 footer .content {
